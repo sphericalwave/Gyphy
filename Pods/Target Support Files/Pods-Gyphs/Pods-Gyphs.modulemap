@@ -1,0 +1,6 @@
+framework module Pods_Gyphs {
+  umbrella header "Pods-Gyphs-umbrella.h"
+
+  export *
+  module * { export * }
+}
