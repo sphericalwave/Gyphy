@@ -13,7 +13,6 @@ struct LocalGif: Codable, Equatable
     let gif: Gif
     let uuid: UUID
     var fav: Bool   //FIXME: Be Immutable
-    //let favorites: Favorites
     
     init(gif: Gif) {
         self.gif = gif

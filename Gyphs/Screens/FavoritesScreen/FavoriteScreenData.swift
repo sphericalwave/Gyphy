@@ -34,7 +34,6 @@ class FavoriteScreenData: NSObject
     @objc func start() {  //FIXME: Naming...Refresh?
         var snapshot = NSDiffableDataSourceSnapshot<Section, FavoriteGif>() //FIXME: Be Immutable
         let favoriteGifs = favorites.all()
-        //fatalError() //FIXME: Fragile
         if favoriteGifs.count == 0 { gifsScreen.showEmptyMessage(true) }
         else { gifsScreen.showEmptyMessage(false) }
         snapshot.appendSections([.main])

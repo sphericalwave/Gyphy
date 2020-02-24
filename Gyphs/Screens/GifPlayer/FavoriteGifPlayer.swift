@@ -50,7 +50,7 @@ class FavoriteGifPlayer: UIViewController
     }
     
     @objc func doubleTapped() {
-        do { try favorites.remove(favoriteGif) }
+        do { try favorites.remove(favoriteGif: favoriteGif) }
         catch { fatalError() } //FIXME: Fragile handle error
     }
 }

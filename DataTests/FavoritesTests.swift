@@ -9,42 +9,37 @@
 import XCTest
 @testable import Gyphs
 
-class FavoritesTests: XCTestCase {
+class FavoritesTests: XCTestCase
+{
+    var favoriteGifs: FavoriteGifs!
+    var localGif: LocalGif!
     
-    let favorites = FavoriteGifs()
-
-    func testSavingLocalGif() {
-        let url = URL(string: "www.sphericalwave.com")!
-        let oImage = OriginalImage(url: url)
-        let images = Images(original: oImage)
-        let gif = Gif(images: images, id: "test_id")
-        let localGif = LocalGif(gif: gif)
-        let jsonEncoder = JSONEncoder()
+    override func setUp() {
+        let url = URL(string: "https://media2.giphy.com/media/lnOG1o6Cdc3kKjuray/giphy.gif?cid=ff71a59d4837e2a4150ac37fb3157bcef8c9421364b1907d&rid=giphy.gif")
+        let originalImage = OriginalImage(url: url!)
+        let images = Images(original: originalImage)
+        let gif = Gif(images: images, id: "testGif")
+        self.localGif = LocalGif(gif: gif)
+        self.favoriteGifs = FavoriteGifs()
+    }
+    
+    override func tearDown() {
+        favoriteGifs = nil
+        localGif = nil
+    }
+    
+    func testSavingAndRemovingLocalGif() {
         do {
-            let data = try jsonEncoder.encode(localGif)
-            try favorites.save(fileName: "test_file", with: data)
+            try favoriteGifs.save(localGif)
+            //wait(for: [expectation], timeout: 1.0)
+            //expectation.fulfill()
+            //let id = localGif.id()
+            //let favGifData = try favoriteGifs.data(for: id)
+            //let jsonDecoder = JSONDecoder()
+            //let favGif = try jsonDecoder.decode(FavoriteGif.self, from: favGifData)
+            //try favoriteGifs.remove(favoriteGif: favGif)
         }
         catch { XCTFail() }
-    }
-    
-    func testReadLocalGif() {
-        let jsonDecoder = JSONDecoder()
-          do {
-            let data = try favorites.data(for: "test_id")
-            let localGif = try jsonDecoder.decode(LocalGif.self, from: data)
-            print(localGif.uuid)
-          }
-          catch {
-            print(error)
-            XCTFail()
-        }
-    }
-    
-    func testURLForFilename() {
-        let testURL = favorites.url(for: "Test")
-        let absPath = (testURL.absoluteString)
-        let expectedPath = "/Users/DarkKnight/Library/Developer/CoreSimulator/Devices/03D82645-1BD8-4E03-BC8D-9C0E7957E0B3/data/Containers/Data/Application/62BA36CE-60BF-412A-9384-9326EF922B1D/Documents"
-        XCTAssertEqual(absPath, expectedPath)
     }
 }
 

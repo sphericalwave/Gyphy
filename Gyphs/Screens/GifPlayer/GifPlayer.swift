@@ -69,7 +69,7 @@ class GifPlayer: UIViewController
         if localGif.fav {
             localGif.fav = false
             heartIcon.isHidden = true
-            do { try favorites.remove(localGif) }
+            do { try favorites.remove(localGif: localGif) }
             catch { return } //FIXME: Fragile handle error
         }
         else {

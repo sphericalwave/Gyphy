@@ -49,8 +49,8 @@ class FavoriteGifs: NSObject //FIXME: Naming
         favGifDownload.resume()
     }
     
-    //FIXME: Can i remove this Redundancy
-    func remove(_ localGif: LocalGif) throws {
+    //FIXME: Can i remove this Redundancy...Not yet
+    func remove(localGif: LocalGif) throws {
         let fileURL = url(for: localGif.id())
         print("Removing file atURL \(fileURL.relativeString)")
         do { try fileSystem.removeItem(at: fileURL) }
@@ -58,15 +58,13 @@ class FavoriteGifs: NSObject //FIXME: Naming
         notifications.post(name: .didRemoveFavorite, object: nil)
     }
     
-    //FIXME: Can i remove this Redundancy
-    func remove(_ favoriteGif: FavoriteGif) throws {
+    func remove(favoriteGif: FavoriteGif) throws {
         let fileURL = url(for: favoriteGif.id)
         print("Removing file atURL \(fileURL.relativeString)")
         do { try fileSystem.removeItem(at: fileURL) }
         catch { throw error }  //FIXME: Fragile
         notifications.post(name: .didRemoveFavorite, object: nil)
     }
-    
     
     func url(for fileName: String) -> URL {
         return documentDirectoryURL.appendingPathComponent(fileName)
@@ -78,8 +76,6 @@ class FavoriteGifs: NSObject //FIXME: Naming
         do { return try Data(contentsOf: fileURL) }
         catch { throw FileError.readFailed }
     }
-    
-    
     
     func printFileNames() throws {
         do {
